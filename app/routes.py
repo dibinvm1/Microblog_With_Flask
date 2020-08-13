@@ -20,7 +20,11 @@ def index():
     page = request.args.get('page',1,type=int)        
     posts = current_user.followed_posts().paginate(
         page,app.config['POSTS_PER_PAGE'],False)
-    return render_template('index.html',title = "Home Page", form=form, posts = posts.items)
+    next_url = url_for('index',page = posts.next_num) \
+         if posts.has_next else None
+    prev_url = url_for('index',page = posts.prev_num) \
+         if posts.has_prev else None
+    return render_template('index.html',title = "Home Page", form=form, posts = posts.items, next_url=next_url, prev_url=prev_url)
 
 
 @app.route('/login' , methods=['GET', 'POST'])
@@ -66,9 +70,15 @@ def register():
 @login_required
 def user(username):
     usr = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author = usr)
+    page = request.args.get('page',1,type=int)
+
+    posts = Post.query.filter_by(author = usr).order_by(Post.timestamp.desc()).paginate(
+        page,app.config['POSTS_PER_PAGE'],False)
+    next_url = url_for('user', username=usr.username, page=posts.next_num) if posts.has_next else None
+    prev_url = url_for('user', username=usr.username, page=posts.prev_num) if posts.has_prev else None
+
     form = EmptyForm()
-    return render_template('user.html', user=usr, posts=posts, form=form)
+    return render_template('user.html', user=usr, posts=posts.items, next_url=next_url, prev_url=prev_url, form=form)
 
 
 @app.before_request
@@ -141,4 +151,8 @@ def explore():
     page = request.args.get('page',1,type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page,app.config['POSTS_PER_PAGE'],False)
-    return render_template('index.html', title='Explore', posts=posts.items)
+    next_url = url_for('explore',page = posts.next_num)\
+         if posts.has_next else None
+    prev_url = url_for('explore',page = posts.prev_num)\
+         if posts.has_prev else None
+    return render_template('index.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url)
