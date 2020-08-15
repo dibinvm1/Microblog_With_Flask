@@ -9,3 +9,4 @@ def not_found_error(error):
 def internal_server_error(error):
     db.session.rollbak()
     return render_template('500.html'), 500
+
