@@ -52,6 +52,7 @@
 {% block scripts %}
     {{ super() }}
     {{ moment.include_moment() }}
+    <!--For date time-->
     {{ moment.lang(g.locale) }}
 {% endblock %}
 
