@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-15 21:42+0530\n"
-"PO-Revision-Date: 2020-08-15 21:42+0530\n"
+"POT-Creation-Date: 2020-08-15 23:04+0530\n"
+"PO-Revision-Date: 2020-08-15 23:04+0530\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ml\n"
 "Language-Team: ml <LL@li.org>\n"
@@ -193,11 +193,11 @@ msgstr "പിന്തുടരുന്നത് നിര്‍ത്തു�
 
 #: app/__init__.py:20
 msgid "Please login to Access this page"
-msgstr "ഈ പേജ് ആക്സസ് ചെയ്യാൻ ലോഗിൻ ചെയ്യുക"
+msgstr "ഈ പേജ് കാണാന്‍ ചെയ്യാൻ ലോഗിൻ ചെയ്യുക"
 
 #: app/forms.py:8 app/forms.py:14 app/forms.py:32
 msgid "User Name"
-msgstr "ഉപയോക്താവിന്റെ പേരു്"
+msgstr "പേരു്"
 
 #: app/forms.py:9 app/forms.py:16 app/forms.py:58
 msgid "Password"
@@ -213,7 +213,7 @@ msgstr "ഇമെയിൽ"
 
 #: app/forms.py:17
 msgid "Confirm PassWord"
-msgstr "പാസ്വേഡ് സ്ഥിരീകരിക്കുക"
+msgstr "പാസ്വേഡ് ഉറപ്പാക്കുക"
 
 #: app/forms.py:18
 msgid "Sign Up"
@@ -239,5 +239,20 @@ msgstr "പാസ്‌വേഡ് പുന:ക്രമീകരിക്ക�
 msgid "Confirm Password"
 msgstr "പാസ്‌വേഡ് ഉറപ്പാക്കുക"
 
+#: app/templates/404.html:4
+msgid "File Not Found"
+msgstr "ഫയൽ ലഭ്യമല്ല"
+
+#: app/templates/500.html:4
+msgid "An unexpected error has occurred"
+msgstr "ഒരു അപ്രതീക്ഷിത പിഴവ് സംഭവിച്ചിരിക്കുന്നു"
+
+#: app/templates/500.html:5
+msgid "The administrator has been notified. Sorry for the inconvenience!"
+msgstr "അഡ്മിനിസ്ട്രേറ്ററെ അറിയിച്ചിട്ടുണ്ട്. അസൗകര്യം ക്ഷമിക്കണം!"
+
+#: app/templates/404.html:5 app/templates/500.html:6
+msgid "Back"
+msgstr "പുറകിലേക്ക്"
 
 
