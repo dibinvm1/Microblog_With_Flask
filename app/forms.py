@@ -48,7 +48,7 @@ class EmptyForm(FlaskForm):
 
 class PostForm(FlaskForm):
     post = TextAreaField(_l('Say Something'),validators=[DataRequired(), Length(min=1, max=140)])
-    submit = SubmitField(_l("Submit"))
+    submit = SubmitField(_l('Submit'))
 
 class ResetPasswordRequestForm(FlaskForm):
     email = StringField(_l('Email'), validators=[DataRequired(), Email()])

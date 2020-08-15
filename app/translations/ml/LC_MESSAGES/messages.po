@@ -1,0 +1,243 @@
+# Malayalam translations for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-08-15 21:42+0530\n"
+"PO-Revision-Date: 2020-08-15 21:42+0530\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ml\n"
+"Language-Team: ml <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: app/email.py:22
+msgid "[Microblog] Reset Your Password"
+msgstr "[മൈക്രോബ്ലോഗ്] നിങ്ങളുടെ പാസ്‌വേഡ് മാറ്റുക"
+
+#: app/forms.py:23
+msgid "Please Use a different Username"
+msgstr "മറ്റൊരു ഉപയോക്തൃനാമം ഉപയോഗിക്കുക"
+
+#: app/forms.py:28
+msgid "Please Use a different Email address"
+msgstr "മറ്റൊരു ഇമെയിൽ വിലാസം ഉപയോഗിക്കുക"
+
+#: app/forms.py:44
+msgid "Please use a different username"
+msgstr "മറ്റൊരു ഉപയോക്തൃനാമം ഉപയോഗിക്കുക"
+
+#: app/routes.py:29
+msgid "Your post is now live!"
+msgstr "നിങ്ങളുടെ പോസ്റ്റ് ഇപ്പോൾ തത്സമയമാണ്!"
+
+#: app/routes.py:38
+msgid "Home Page"
+msgstr "ഹോം പേജ്"
+
+#: app/routes.py:49
+msgid "Invalid username or Password"
+msgstr "അസാധുവായ ഉപയോക്തൃനാമം അല്ലെങ്കിൽ പാസ്വേഡ്"
+
+#: app/forms.py:11 app/routes.py:56 app/templates/login.html:5
+msgid "Sign In"
+msgstr "സൈൻ ഇൻ"
+
+#: app/routes.py:75
+msgid "Congratulations,You are now a registered user!"
+msgstr "അഭിനന്ദനങ്ങൾ, നിങ്ങൾ ഇപ്പോൾ ഒരു രജിസ്റ്റർ ചെയ്ത ഉപയോക്താവാണ്!"
+
+#: app/routes.py:77 app/templates/register.html:5
+msgid "Register"
+msgstr "രജിസ്റ്റർ ചെയ്യുക"
+
+#: app/routes.py:103
+msgid "Your changes have been saved."
+msgstr "നിങ്ങളുടെ ചെയ്ത മാറ്റങ്ങൾ സംരക്ഷിക്കപ്പെട്ടു."
+
+#: app/routes.py:108 app/templates/edit_profile.html:5
+msgid "Edit Profile"
+msgstr "പ്രൊഫൈലില്‍ മാറ്റങ്ങൾ വരുത്തുക"
+
+#: app/routes.py:119 app/routes.py:139
+msgid "User %(username)s not found."
+msgstr "ഉപയോക്തൃ %(username)s കണ്ടെത്തിയില്ല."
+
+#: app/routes.py:122
+msgid "You cannot follow yourself!"
+msgstr "നിങ്ങൾക്ക് സ്വയം പിന്തുടരാനാവില്ല!"
+
+#: app/routes.py:126
+msgid "You are now following %(username)s!"
+msgstr "നിങ്ങൾ ഇപ്പോൾ %(username)s പിന്തുടരുന്നു!"
+
+#: app/routes.py:142
+msgid "You cannot unfollow yourself!"
+msgstr "നിങ്ങൾക്ക് സ്വയം പിന്തുടരാനാവില്ല!"
+
+#: app/routes.py:146
+msgid "You are not following %(username)s."
+msgstr "നിങ്ങൾ %(username)s പിന്തുടരുന്നില്ല."
+
+#: app/routes.py:162 app/templates/base.html:22
+msgid "Explore"
+msgstr "ഏല്ലാം കാണുക"
+
+#: app/routes.py:174
+msgid "Check Your email for the instructins to reset your password!"
+msgstr "നിങ്ങളുടെ പാസ്‌വേഡ് മാറ്റാന്‍ വേണ്ടി ഉളള നിർദ്ദേശങ്ങൾക്കായി നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കുക!"
+
+#: app/routes.py:176
+msgid "User Not Found.Plsease use the correct email!!"
+msgstr "ഉപയോക്താവ് കണ്ടെത്തിയില്ല. ദയവായി ശരിയായ ഇമെയിൽ ഉപയോഗിക്കുക !!"
+
+#: app/forms.py:60 app/routes.py:177
+#: app/templates/reset_password_request.html:5
+msgid "Reset Password"
+msgstr "പാസ്‌വേഡ്  പുന:ക്രമീകരിക്കാൻ "
+
+#: app/routes.py:191
+msgid "Your password has been reset."
+msgstr "പാസ്‌വേഡ്  പുന:ക്രമീകരിചിരിക്കുന്നു"
+
+#: app/templates/_post.html:14
+msgid "%(username)s said %(when)s"
+msgstr "%(username)s %(when)s പറഞു"
+
+#: app/templates/base.html:4
+msgid "Welcome to Microblog"
+msgstr "മൈക്രോബ്ലോഗിലേക്ക് സ്വാഗതം"
+
+#: app/templates/base.html:21
+msgid "Home"
+msgstr "ഹൊം"
+
+#: app/templates/base.html:26
+msgid "Login"
+msgstr "ലോഗിൻ"
+
+#: app/templates/base.html:28
+msgid "Profile"
+msgstr "പ്രൊഫൈൽ"
+
+#: app/templates/base.html:29
+msgid "Logout"
+msgstr "ലോഗൗട്ട്"
+
+#: app/templates/index.html:6
+msgid "Hi, %(username)s!"
+msgstr "ഹായ് , %(username)s!"
+
+#: app/templates/index.html:18 app/templates/user.html:41
+msgid "Previous"
+msgstr "മുമ്പത്തെ"
+
+#: app/templates/index.html:23 app/templates/user.html:46
+msgid "Next"
+msgstr "അടുത്തത്"
+
+#: app/templates/login.html:11
+msgid "Forgot Your Password?"
+msgstr "നിങ്ങളുടെ പാസ്വേഡ് മറന്നോ?"
+
+#: app/templates/login.html:12
+msgid "Click Here to Reset Password"
+msgstr "പാസ്‌വേഡ് പുന:ക്രമീകരിക്കാൻ ഇവിടെ ക്ലിക്കുചെയ്യുക"
+
+#: app/templates/login.html:14
+msgid "New User?"
+msgstr "പുതിയ ഉപയോക്താവ്?"
+
+#: app/templates/login.html:14
+msgid "Click to Register!"
+msgstr "രജിസ്റ്റർ ചെയ്യാൻ ക്ലിക്കുചെയ്യുക!"
+
+#: app/templates/reset_password.html:5
+msgid "Reset Your Password"
+msgstr "നിങ്ങളുടെ പാസ്‌വേഡ് പുന:ക്രമീകരിക്കുക"
+
+#: app/templates/user.html:8
+msgid "User"
+msgstr "ഉപയോക്താവ്"
+
+#: app/templates/user.html:11
+msgid "Last seen on"
+msgstr "അവസാനമായി ഇവിടെ വന്നത്"
+
+#: app/templates/user.html:13
+msgid "%(count)d followers"
+msgstr "നിങള്‍ %(count)d പിന്തുടരുന്നു"
+
+#: app/templates/user.html:13
+msgid "%(count)d following"
+msgstr "നിങളെ %(count)d പിന്തുടരുന്നു"
+
+#: app/templates/user.html:15
+msgid "Edit your profile"
+msgstr "നിങ്ങളുടെ പ്രൊഫൈൽ എഡിറ്റുചെയ്യുക"
+
+#: app/templates/user.html:20
+msgid "Follow"
+msgstr "പിന്തുടരുക"
+
+#: app/templates/user.html:27
+msgid "Unfollow"
+msgstr "പിന്തുടരുന്നത് നിര്‍ത്തുക"
+
+#: app/__init__.py:20
+msgid "Please login to Access this page"
+msgstr "ഈ പേജ് ആക്സസ് ചെയ്യാൻ ലോഗിൻ ചെയ്യുക"
+
+#: app/forms.py:8 app/forms.py:14 app/forms.py:32
+msgid "User Name"
+msgstr "ഉപയോക്താവിന്റെ പേരു്"
+
+#: app/forms.py:9 app/forms.py:16 app/forms.py:58
+msgid "Password"
+msgstr "പാസ്‌വേഡ്"
+
+#: app/forms.py:10
+msgid "Remember Me"
+msgstr "എന്നെ ഓര്ക്കുക"
+
+#: app/forms.py:15 app/forms.py:54
+msgid "Email"
+msgstr "ഇമെയിൽ"
+
+#: app/forms.py:17
+msgid "Confirm PassWord"
+msgstr "പാസ്വേഡ് സ്ഥിരീകരിക്കുക"
+
+#: app/forms.py:18
+msgid "Sign Up"
+msgstr "സൈൻ അപ്പ് ചെയ്യുക"
+
+#: app/forms.py:33
+msgid "About Me"
+msgstr "എന്നെക്കുറിച്ച്"
+
+#: app/forms.py:34 app/forms.py:47 app/forms.py:51
+msgid "Submit"
+msgstr "സമർപ്പിക്കുക"
+
+#: app/forms.py:50
+msgid "Say Something"
+msgstr "എന്തെങ്കിലും പറ"
+
+#: app/forms.py:55
+msgid "Request Password Reset"
+msgstr "പാസ്‌വേഡ് പുന:ക്രമീകരിക്കാൻ അഭ്യർത്ഥിക്കുക "
+
+#: app/forms.py:59
+msgid "Confirm Password"
+msgstr "പാസ്‌വേഡ് ഉറപ്പാക്കുക"
+
+
+
