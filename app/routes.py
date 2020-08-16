@@ -11,6 +11,8 @@ from flask_babel import _, get_locale
 # for Date time 
 @app.before_request
 def before_request():
+    ''' Used for adding the last scene to user invoked for every request 
+        also used to request the locale for translating'''
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
@@ -21,6 +23,8 @@ def before_request():
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
+    ''' index page 
+     returns the renderd template for index page'''
     form = PostForm()
     if form.validate_on_submit():
         post = Post(body=form.post.data, author=current_user)
@@ -40,6 +44,8 @@ def index():
 
 @app.route('/login' , methods=['GET', 'POST'])
 def login():
+    ''' login page 
+     returns the renderd template for index if login successfull else same page'''
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
@@ -64,6 +70,8 @@ def logout():
 
 @app.route('/register',methods = ['GET', 'POST'])
 def register():
+    ''' new Register page 
+     returns the renderd template for login page if registeration is successfull else same page'''
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegristrationForm()
@@ -80,6 +88,8 @@ def register():
 @app.route('/user/<username>')
 @login_required
 def user(username):
+    ''' User profile page 
+     returns the renderd template for profile page'''
     usr = User.query.filter_by(username=username).first_or_404()
     page = request.args.get('page',1,type=int)
 
@@ -95,6 +105,8 @@ def user(username):
 @app.route('/edit_profile', methods=["GET", "POST"])
 @login_required
 def edit_profile():
+    ''' User Edit profile page 
+     returns the renderd template for edit profile page''''
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
         current_user.username = form.uName.data.lower()
@@ -112,6 +124,8 @@ def edit_profile():
 @app.route('/follow/<username>', methods=['POST'])
 @login_required
 def follow(username):
+    ''' Follow call invokes when user clicks follow button in a user profile page 
+     returns the renderd template for same user profile page'''
     form = EmptyForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
@@ -132,6 +146,8 @@ def follow(username):
 @app.route('/unfollow/<username>', methods=['POST'])
 @login_required
 def unfollow(username):
+    ''' UnFollow call invokes when user clicks unfollow in a user profile page 
+     returns the renderd template for same user profile page'''
     form = EmptyForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
@@ -152,6 +168,8 @@ def unfollow(username):
 @app.route('/explore')
 @login_required
 def explore():
+    ''' Explore call invokes when user clicks explore button in the Nav bar 
+     returns the renderd template for index page with all the post fro all users'''
     page = request.args.get('page',1,type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page,app.config['POSTS_PER_PAGE'],False)
@@ -164,6 +182,8 @@ def explore():
 
 @app.route('/reset_password_request', methods=['GET','POST'])
 def reset_password_request():
+    ''' Reset password request page 
+     Sends the request mail to user email if user is found'''
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = ResetPasswordRequestForm()
@@ -179,6 +199,8 @@ def reset_password_request():
 
 @app.route('/reset_password/<token>', methods= ['GET', 'POST'])
 def reset_password(token):
+    ''' Reset password page 
+    resets the password of user if token is verfied'''
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     user = User.verify_reset_password_token(token)

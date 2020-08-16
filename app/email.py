@@ -6,6 +6,8 @@ from threading import Thread
 
 
 def send_mail(subject, sender, recipients, text_body, html_body):
+    ''' sending mail prototype 
+        html and text body needed as the body of the message'''
     msg = Message(subject, sender=sender, recipients=recipients)
     msg.html = html_body
     msg.body  = text_body
@@ -18,6 +20,8 @@ def send_async_email(app, msg):
         mail.send(msg)
 
 def send_password_reset_email(user):
+    ''' sending mail to reset the password 
+     jwt token is generated send with the mail'''
     token = user.get_reset_password_token()
     send_mail(_('[Microblog] Reset Your Password'), sender=app.config['ADMINS'][0],
     recipients=[user.email],

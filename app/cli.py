@@ -8,7 +8,6 @@ def translate():
     """Translation and localization commands."""
     pass
 
-
 @translate.command()
 @click.argument('lang')
 def init(lang):
@@ -30,6 +29,23 @@ def update():
         raise RuntimeError('update command failed')
     os.remove('messages.pot')
 
+
+
+
+
+''' Just playing around!!, ignore this'''
+
+@app.cli.group()
+def database():
+    """Database operational commands"""
+    pass
+
+@database.command()
+@click.argument("commit_msg")
+def migrate(commit_msg):
+    '''flask-migrate command  '''
+    if os.system('flask db migrate -m'+ commit_msg):
+        raise RuntimeError('Migration failed')
 
 @translate.command()
 def compile():

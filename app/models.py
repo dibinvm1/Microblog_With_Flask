@@ -12,6 +12,8 @@ followers = db.Table('followers',
 )
 
 class User(UserMixin,db.Model):
+    ''' User Table class
+        contains all the columns and relations ships in the user table '''
     __tablename__ = 'user'
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(64),index=True,unique = True)
@@ -27,31 +29,44 @@ class User(UserMixin,db.Model):
         backref = db.backref('followers',lazy = 'dynamic'), lazy = 'dynamic')
 
     def __repr__(self):
+        ''' setting up how the instance represents '''
         return '<User {}>'.format(self.username)
     
     def set_password(self,password):
+        ''' generating and setting password hash in the table '''
         self.password_hash = generate_password_hash(password)
 
     def check_password(self,password):
+        ''' checks if the password is correct by matching password hashs
+        returns boolean value'''
         return check_password_hash(self.password_hash,password)
     
     def avatar(self,size):
+        '''generates the avatar hash to be used in the gravatar website
+        and returns the URI string'''
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
             digest, size)
 
     def is_following(self,user):
+        ''' Checks if the current_user is following  specified user 
+        returns True if current user is following specifed user else False'''
         return self.followed.filter(followers.c.followed_id == user.id).count() > 0
 
     def follow(self,user):
+        ''' adds user to current_user following list '''
         if not self.is_following(user):
             self.followed.append(user)
     
     def unfollow(self,user):
+        ''' removes the user from current_user following list '''
         if self.is_following(user):
             self.followed.remove(user)
     
     def followed_posts(self):
+        ''' query to get all the following users post and current_user's own past and 
+        sorts them based on the timestamp descending
+        returns a list of posts'''
         followed = Post.query.join(
             followers,(followers.c.followed_id == Post.user_id)).filter(
                 followers.c.follower_id == self.id)
@@ -59,11 +74,16 @@ class User(UserMixin,db.Model):
         return followed.union(own).order_by(Post.timestamp.desc())
  
     def get_reset_password_token(self,expires_in=600):
+        ''' generates a jwt token based on the Secret key 
+        returns the token String'''
         return jwt.encode({'reset_password':self.id, 'exp':time() + expires_in},
         app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
 
     @staticmethod
     def verify_reset_password_token(token):
+        ''' checks the jwt token based on the Secret key 
+        returns User class instance
+        This is a static method so does not need the self param and can't modify the class functionality'''
         try:
             id = jwt.decode(token, app.config['SECRET_KEY'],
             algorithms=['HS256'])['reset_password']
@@ -72,16 +92,21 @@ class User(UserMixin,db.Model):
         return User.query.get(id)
 
 class Post(db.Model):
+    ''' Post Table class
+        contains all the columns and relations ships in the post table '''
     id = db.Column(db.Integer,primary_key = True)
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime,index=True,default = datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
-
+    language = db.Column(db.String(5))
+    
     def __repr__(self):
+        ''' setting up how the instance represents '''
         return '<Post {}'.format(self.body)
     
 
 @login.user_loader
 def load_user(id):
+    ''' returns the user instance based on the user.id provided '''
     return User.query.get(int(id))
 
