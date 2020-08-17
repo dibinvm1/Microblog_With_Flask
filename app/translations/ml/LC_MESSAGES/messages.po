@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-15 23:04+0530\n"
+"POT-Creation-Date: 2020-08-17 12:06+0530\n"
 "PO-Revision-Date: 2020-08-15 23:04+0530\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ml\n"
@@ -18,96 +18,154 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: app/email.py:22
+#: app/__init__.py:19
+msgid "Please log in to access this page."
+msgstr "ഈ പേജ് കാണാന്‍ ചെയ്യാൻ ലോഗിൻ ചെയ്യുക"
+
+#: app/auth/email.py:9
 msgid "[Microblog] Reset Your Password"
 msgstr "[മൈക്രോബ്ലോഗ്] നിങ്ങളുടെ പാസ്‌വേഡ് മാറ്റുക"
 
-#: app/forms.py:23
-msgid "Please Use a different Username"
-msgstr "മറ്റൊരു ഉപയോക്തൃനാമം ഉപയോഗിക്കുക"
+#: app/auth/forms.py:10
+msgid "Username \\ Email"
+msgstr "പേരു്\\ഇമെയിൽ"
 
-#: app/forms.py:28
-msgid "Please Use a different Email address"
-msgstr "മറ്റൊരു ഇമെയിൽ വിലാസം ഉപയോഗിക്കുക"
+#: app/auth/forms.py:11 app/auth/forms.py:20 app/auth/forms.py:49
+msgid "Password"
+msgstr "പാസ്‌വേഡ്"
 
-#: app/forms.py:44
-msgid "Please use a different username"
-msgstr "മറ്റൊരു ഉപയോക്തൃനാമം ഉപയോഗിക്കുക"
+#: app/auth/forms.py:12
+msgid "Remember Me"
+msgstr "എന്നെ ഓര്ക്കുക"
 
-#: app/routes.py:29
-msgid "Your post is now live!"
-msgstr "നിങ്ങളുടെ പോസ്റ്റ് ഇപ്പോൾ തത്സമയമാണ്!"
-
-#: app/routes.py:38
-msgid "Home Page"
-msgstr "ഹോം പേജ്"
-
-#: app/routes.py:49
-msgid "Invalid username or Password"
-msgstr "അസാധുവായ ഉപയോക്തൃനാമം അല്ലെങ്കിൽ പാസ്വേഡ്"
-
-#: app/forms.py:11 app/routes.py:56 app/templates/login.html:5
+#: app/auth/forms.py:13 app/auth/routes.py:29 app/templates/auth/login.html:5
 msgid "Sign In"
 msgstr "സൈൻ ഇൻ"
 
-#: app/routes.py:75
-msgid "Congratulations,You are now a registered user!"
-msgstr "അഭിനന്ദനങ്ങൾ, നിങ്ങൾ ഇപ്പോൾ ഒരു രജിസ്റ്റർ ചെയ്ത ഉപയോക്താവാണ്!"
+#: app/auth/forms.py:18 app/main/forms.py:10
+msgid "User Name"
+msgstr "പേരു്"
 
-#: app/routes.py:77 app/templates/register.html:5
-msgid "Register"
-msgstr "രജിസ്റ്റർ ചെയ്യുക"
+#: app/auth/forms.py:19 app/auth/forms.py:43
+msgid "Email"
+msgstr "ഇമെയിൽ"
 
-#: app/routes.py:103
-msgid "Your changes have been saved."
-msgstr "നിങ്ങളുടെ ചെയ്ത മാറ്റങ്ങൾ സംരക്ഷിക്കപ്പെട്ടു."
+#: app/auth/forms.py:21
+msgid "Confirm PassWord"
+msgstr "പാസ്വേഡ് ഉറപ്പാക്കുക"
 
-#: app/routes.py:108 app/templates/edit_profile.html:5
-msgid "Edit Profile"
-msgstr "പ്രൊഫൈലില്‍ മാറ്റങ്ങൾ വരുത്തുക"
+#: app/auth/forms.py:22
+msgid "Sign Up"
+msgstr "സൈൻ അപ്പ് ചെയ്യുക"
 
-#: app/routes.py:119 app/routes.py:139
-msgid "User %(username)s not found."
-msgstr "ഉപയോക്തൃ %(username)s കണ്ടെത്തിയില്ല."
+#: app/auth/forms.py:30
+msgid "Please Use a different Username"
+msgstr "മറ്റൊരു ഉപയോക്തൃനാമം ഉപയോഗിക്കുക"
 
-#: app/routes.py:122
-msgid "You cannot follow yourself!"
-msgstr "നിങ്ങൾക്ക് സ്വയം പിന്തുടരാനാവില്ല!"
+#: app/auth/forms.py:38
+msgid "Please Use a different Email address"
+msgstr "മറ്റൊരു ഇമെയിൽ വിലാസം ഉപയോഗിക്കുക"
 
-#: app/routes.py:126
-msgid "You are now following %(username)s!"
-msgstr "നിങ്ങൾ ഇപ്പോൾ %(username)s പിന്തുടരുന്നു!"
+#: app/auth/forms.py:44
+msgid "Request Password Reset"
+msgstr "പാസ്‌വേഡ് പുന:ക്രമീകരിക്കാൻ അഭ്യർത്ഥിക്കുക "
 
-#: app/routes.py:142
-msgid "You cannot unfollow yourself!"
-msgstr "നിങ്ങൾക്ക് സ്വയം പിന്തുടരാനാവില്ല!"
+#: app/auth/forms.py:50
+msgid "Confirm Password"
+msgstr "പാസ്‌വേഡ് ഉറപ്പാക്കുക"
 
-#: app/routes.py:146
-msgid "You are not following %(username)s."
-msgstr "നിങ്ങൾ %(username)s പിന്തുടരുന്നില്ല."
-
-#: app/routes.py:162 app/templates/base.html:22
-msgid "Explore"
-msgstr "ഏല്ലാം കാണുക"
-
-#: app/routes.py:174
-msgid "Check Your email for the instructins to reset your password!"
-msgstr "നിങ്ങളുടെ പാസ്‌വേഡ് മാറ്റാന്‍ വേണ്ടി ഉളള നിർദ്ദേശങ്ങൾക്കായി നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കുക!"
-
-#: app/routes.py:176
-msgid "User Not Found.Plsease use the correct email!!"
-msgstr "ഉപയോക്താവ് കണ്ടെത്തിയില്ല. ദയവായി ശരിയായ ഇമെയിൽ ഉപയോഗിക്കുക !!"
-
-#: app/forms.py:60 app/routes.py:177
-#: app/templates/reset_password_request.html:5
+#: app/auth/forms.py:51 app/auth/routes.py:70
+#: app/templates/auth/reset_password_request.html:5
 msgid "Reset Password"
 msgstr "പാസ്‌വേഡ്  പുന:ക്രമീകരിക്കാൻ "
 
-#: app/routes.py:191
+#: app/auth/routes.py:22
+msgid "Invalid username or Password"
+msgstr "അസാധുവായ ഉപയോക്തൃനാമം അല്ലെങ്കിൽ പാസ്വേഡ്"
+
+#: app/auth/routes.py:51
+msgid "Congratulations,You are now a registered user!"
+msgstr "അഭിനന്ദനങ്ങൾ, നിങ്ങൾ ഇപ്പോൾ ഒരു രജിസ്റ്റർ ചെയ്ത ഉപയോക്താവാണ്!"
+
+#: app/auth/routes.py:53 app/templates/auth/register.html:5
+msgid "Register"
+msgstr "രജിസ്റ്റർ ചെയ്യുക"
+
+#: app/auth/routes.py:67
+msgid "Check your email for the instructions to reset your password"
+msgstr ""
+"നിങ്ങളുടെ പാസ്‌വേഡ് മാറ്റാന്‍ വേണ്ടി ഉളള നിർദ്ദേശങ്ങൾക്കായി നിങ്ങളുടെ "
+"ഇമെയിൽ പരിശോധിക്കുക!"
+
+#: app/auth/routes.py:69
+msgid "User Not Found.Plsease use the correct email!!"
+msgstr "ഉപയോക്താവ് കണ്ടെത്തിയില്ല. ദയവായി ശരിയായ ഇമെയിൽ ഉപയോഗിക്കുക !!"
+
+#: app/auth/routes.py:86
 msgid "Your password has been reset."
 msgstr "പാസ്‌വേഡ്  പുന:ക്രമീകരിചിരിക്കുന്നു"
 
+#: app/main/forms.py:11
+msgid "About Me"
+msgstr "എന്നെക്കുറിച്ച്"
+
+#: app/main/forms.py:12 app/main/forms.py:31 app/main/forms.py:36
+msgid "Submit"
+msgstr "സമർപ്പിക്കുക"
+
+#: app/main/forms.py:26
+msgid "Please use a different username"
+msgstr "മറ്റൊരു ഉപയോക്തൃനാമം ഉപയോഗിക്കുക"
+
+#: app/main/forms.py:35
+msgid "Say Something"
+msgstr "എന്തെങ്കിലും പറ"
+
+#: app/main/routes.py:36
+msgid "Your post is now live!"
+msgstr "നിങ്ങളുടെ പോസ്റ്റ് ഇപ്പോൾ തത്സമയമാണ്!"
+
+#: app/main/routes.py:45
+msgid "Home Page"
+msgstr "ഹോം പേജ്"
+
+#: app/main/routes.py:76
+msgid "Your changes have been saved."
+msgstr "നിങ്ങളുടെ ചെയ്ത മാറ്റങ്ങൾ സംരക്ഷിക്കപ്പെട്ടു."
+
+#: app/main/routes.py:81 app/templates/edit_profile.html:5
+msgid "Edit Profile"
+msgstr "പ്രൊഫൈലില്‍ മാറ്റങ്ങൾ വരുത്തുക"
+
+#: app/main/routes.py:94 app/main/routes.py:116
+#, python-format
+msgid "User %(username)s not found."
+msgstr "ഉപയോക്തൃ %(username)s കണ്ടെത്തിയില്ല."
+
+#: app/main/routes.py:97
+msgid "You cannot follow yourself!"
+msgstr "നിങ്ങൾക്ക് സ്വയം പിന്തുടരാനാവില്ല!"
+
+#: app/main/routes.py:101
+#, python-format
+msgid "You are now following %(username)s!"
+msgstr "നിങ്ങൾ ഇപ്പോൾ %(username)s പിന്തുടരുന്നു!"
+
+#: app/main/routes.py:119
+msgid "You cannot unfollow yourself!"
+msgstr "നിങ്ങൾക്ക് സ്വയം പിന്തുടരാനാവില്ല!"
+
+#: app/main/routes.py:123
+#, python-format
+msgid "You are not following %(username)s."
+msgstr "നിങ്ങൾ %(username)s പിന്തുടരുന്നില്ല."
+
+#: app/main/routes.py:141 app/templates/base.html:22
+msgid "Explore"
+msgstr "ഏല്ലാം കാണുക"
+
 #: app/templates/_post.html:14
+#, python-format
 msgid "%(username)s said %(when)s"
 msgstr "%(username)s %(when)s പറഞു"
 
@@ -132,6 +190,7 @@ msgid "Logout"
 msgstr "ലോഗൗട്ട്"
 
 #: app/templates/index.html:6
+#, python-format
 msgid "Hi, %(username)s!"
 msgstr "ഹായ് , %(username)s!"
 
@@ -143,26 +202,6 @@ msgstr "മുമ്പത്തെ"
 msgid "Next"
 msgstr "അടുത്തത്"
 
-#: app/templates/login.html:11
-msgid "Forgot Your Password?"
-msgstr "നിങ്ങളുടെ പാസ്വേഡ് മറന്നോ?"
-
-#: app/templates/login.html:12
-msgid "Click Here to Reset Password"
-msgstr "പാസ്‌വേഡ് പുന:ക്രമീകരിക്കാൻ ഇവിടെ ക്ലിക്കുചെയ്യുക"
-
-#: app/templates/login.html:14
-msgid "New User?"
-msgstr "പുതിയ ഉപയോക്താവ്?"
-
-#: app/templates/login.html:14
-msgid "Click to Register!"
-msgstr "രജിസ്റ്റർ ചെയ്യാൻ ക്ലിക്കുചെയ്യുക!"
-
-#: app/templates/reset_password.html:5
-msgid "Reset Your Password"
-msgstr "നിങ്ങളുടെ പാസ്‌വേഡ് പുന:ക്രമീകരിക്കുക"
-
 #: app/templates/user.html:8
 msgid "User"
 msgstr "ഉപയോക്താവ്"
@@ -172,10 +211,12 @@ msgid "Last seen on"
 msgstr "അവസാനമായി ഇവിടെ വന്നത്"
 
 #: app/templates/user.html:13
+#, python-format
 msgid "%(count)d followers"
 msgstr "നിങള്‍ %(count)d പിന്തുടരുന്നു"
 
 #: app/templates/user.html:13
+#, python-format
 msgid "%(count)d following"
 msgstr "നിങളെ %(count)d പിന്തുടരുന്നു"
 
@@ -191,68 +232,50 @@ msgstr "പിന്തുടരുക"
 msgid "Unfollow"
 msgstr "പിന്തുടരുന്നത് നിര്‍ത്തുക"
 
-#: app/__init__.py:20
-msgid "Please login to Access this page"
-msgstr "ഈ പേജ് കാണാന്‍ ചെയ്യാൻ ലോഗിൻ ചെയ്യുക"
+#: app/templates/auth/login.html:11
+msgid "Forgot Your Password?"
+msgstr "നിങ്ങളുടെ പാസ്വേഡ് മറന്നോ?"
 
-#: app/forms.py:8 app/forms.py:14 app/forms.py:32
-msgid "User Name"
-msgstr "പേരു്"
+#: app/templates/auth/login.html:12
+msgid "Click Here to Reset Password"
+msgstr "പാസ്‌വേഡ് പുന:ക്രമീകരിക്കാൻ ഇവിടെ ക്ലിക്കുചെയ്യുക"
 
-#: app/forms.py:9 app/forms.py:16 app/forms.py:58
-msgid "Password"
-msgstr "പാസ്‌വേഡ്"
+#: app/templates/auth/login.html:14
+msgid "New User?"
+msgstr "പുതിയ ഉപയോക്താവ്?"
 
-#: app/forms.py:10
-msgid "Remember Me"
-msgstr "എന്നെ ഓര്ക്കുക"
+#: app/templates/auth/login.html:14
+msgid "Click to Register!"
+msgstr "രജിസ്റ്റർ ചെയ്യാൻ ക്ലിക്കുചെയ്യുക!"
 
-#: app/forms.py:15 app/forms.py:54
-msgid "Email"
-msgstr "ഇമെയിൽ"
+#: app/templates/auth/reset_password.html:5
+msgid "Reset Your Password"
+msgstr "നിങ്ങളുടെ പാസ്‌വേഡ് പുന:ക്രമീകരിക്കുക"
 
-#: app/forms.py:17
-msgid "Confirm PassWord"
-msgstr "പാസ്വേഡ് ഉറപ്പാക്കുക"
-
-#: app/forms.py:18
-msgid "Sign Up"
-msgstr "സൈൻ അപ്പ് ചെയ്യുക"
-
-#: app/forms.py:33
-msgid "About Me"
-msgstr "എന്നെക്കുറിച്ച്"
-
-#: app/forms.py:34 app/forms.py:47 app/forms.py:51
-msgid "Submit"
-msgstr "സമർപ്പിക്കുക"
-
-#: app/forms.py:50
-msgid "Say Something"
-msgstr "എന്തെങ്കിലും പറ"
-
-#: app/forms.py:55
-msgid "Request Password Reset"
-msgstr "പാസ്‌വേഡ് പുന:ക്രമീകരിക്കാൻ അഭ്യർത്ഥിക്കുക "
-
-#: app/forms.py:59
-msgid "Confirm Password"
-msgstr "പാസ്‌വേഡ് ഉറപ്പാക്കുക"
-
-#: app/templates/404.html:4
+#: app/templates/errors/404.html:4
 msgid "File Not Found"
 msgstr "ഫയൽ ലഭ്യമല്ല"
 
-#: app/templates/500.html:4
-msgid "An unexpected error has occurred"
-msgstr "ഒരു അപ്രതീക്ഷിത പിഴവ് സംഭവിച്ചിരിക്കുന്നു"
-
-#: app/templates/500.html:5
-msgid "The administrator has been notified. Sorry for the inconvenience!"
-msgstr "അഡ്മിനിസ്ട്രേറ്ററെ അറിയിച്ചിട്ടുണ്ട്. അസൗകര്യം ക്ഷമിക്കണം!"
-
-#: app/templates/404.html:5 app/templates/500.html:6
+#: app/templates/errors/404.html:5 app/templates/errors/500.html:6
 msgid "Back"
 msgstr "പുറകിലേക്ക്"
 
+#: app/templates/errors/500.html:4
+msgid "An unexpected error has occurred"
+msgstr "ഒരു അപ്രതീക്ഷിത പിഴവ് സംഭവിച്ചിരിക്കുന്നു"
+
+#: app/templates/errors/500.html:5
+msgid "The administrator has been notified. Sorry for the inconvenience!"
+msgstr "അഡ്മിനിസ്ട്രേറ്ററെ അറിയിച്ചിട്ടുണ്ട്. അസൗകര്യം ക്ഷമിക്കണം!"
+
+#~ msgid "Check Your email for the instructins to reset your password!"
+#~ msgstr ""
+#~ "നിങ്ങളുടെ പാസ്‌വേഡ് മാറ്റാന്‍ വേണ്ടി ഉളള "
+#~ "നിർദ്ദേശങ്ങൾക്കായി നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കുക!"
+
+#~ msgid "User Not Found.Plsease use the correct email!!"
+#~ msgstr ""
+
+#~ msgid "Please login to Access this page"
+#~ msgstr "ഈ പേജ് കാണാന്‍ ചെയ്യാൻ ലോഗിൻ ചെയ്യുക"
 
