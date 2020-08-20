@@ -49,6 +49,11 @@ def create_app(config_class=Config):
 
     ''' Setting up a file logging system '''
     if not app.debug and not app.testing:
+        if app.config['LOG_TO_STDOUT']:
+            stream_handler = logging.StreamHandler()
+            stream_handler.setLevel(logging,INFO)
+            app.logger.addHandler(stream_handler)
+
         if not os.path.exists('logs'):
             os.mkdir('logs') 
         ''' Rotatiting file handler for keeps the files not so big and backups maxbytes tells how many 
