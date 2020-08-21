@@ -1,8 +1,8 @@
 from app import  db
 from flask import render_template, flash, redirect, url_for, request, g, current_app
-from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm
+from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm, MessageForm
 from flask_login import current_user, login_user, login_required
-from app.models import User, Post
+from app.models import User, Post, Message
 from datetime import datetime
 from flask_babel import _, get_locale
 from guess_language import guess_language
@@ -166,3 +166,32 @@ def user_popup(username):
     usr = User.query.filter_by(username=username).first_or_404()
     form = EmptyForm()
     return render_template('user_popup.html', user=usr, form=form)
+
+
+@bp.route('/send_message/<recipient>', methods=['GET', 'POST'])
+@login_required
+def send_message(recipient):
+    rec = User.query.filter_by(username=recipient).first_or_404()
+    form = MessageForm()
+    if form.validate_on_submit():
+        msg = Message(author=current_user, recipient=rec,
+        body = form.message.data)
+        db.session.add(msg)
+        db.session.commit()
+        flash(_('Message has been sent'))
+        return redirect(url_for('main.user',username=recipient))
+    return render_template('send_message.html', title=_('Send Message'),form = form, recipient = recipient)
+
+
+@bp.route('/messages')
+@login_required
+def messages():
+    current_user.last_message_read_time = datetime.utcnow()
+    db.session.commit()
+    page = request.args.get('page', 1, type=int)
+    msgs = current_user.messages_received.order_by(Message.timestamp.desc()).paginate(
+        page, current_app.config['POSTS_PER_PAGE'],False)
+    next_url = url_for('mian.messages', page=msgs.next_num) if msgs.has_next else None
+    prev_url = url_for('mian.messages', page=msgs.prev_num) if msgs.has_prev else None
+    return render_template('messages.html', messages=msgs.items,
+                           next_url=next_url, prev_url=prev_url)
