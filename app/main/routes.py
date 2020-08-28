@@ -3,6 +3,7 @@ from flask import render_template, flash, redirect, url_for, request, g, current
 from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm, MessageForm
 from flask_login import current_user, login_user, login_required
 from app.models import User, Post, Message
+from werkzeug.urls import url_parse
 from datetime import datetime
 from flask_babel import _, get_locale
 from guess_language import guess_language
@@ -45,7 +46,6 @@ def index():
     prev_url = url_for('main.index',page = posts.prev_num) \
          if posts.has_prev else None
     return render_template('index.html',title = _("Home Page"), form=form, posts = posts.items, next_url=next_url, prev_url=prev_url)
-
 
 
 @bp.route('/user/<username>')
@@ -133,6 +133,7 @@ def unfollow(username):
 def explore():
     ''' Explore call invokes when user clicks explore button in the Nav bar 
      returns the renderd template for index page with all the post fro all users'''
+    form = EmptyForm()
     page = request.args.get('page',1,type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page,current_app.config['POSTS_PER_PAGE'],False)
@@ -140,7 +141,7 @@ def explore():
          if posts.has_next else None
     prev_url = url_for('main.explore',page = posts.prev_num)\
          if posts.has_prev else None
-    return render_template('index.html', title=_('Explore'), posts=posts.items, next_url=next_url, prev_url=prev_url)
+    return render_template('index.html', title=_('Explore'), posts=posts.items, next_url=next_url, prev_url=prev_url,delform=form)
 
 
 @bp.route('/search')
@@ -195,3 +196,18 @@ def messages():
     prev_url = url_for('mian.messages', page=msgs.prev_num) if msgs.has_prev else None
     return render_template('messages.html', messages=msgs.items,
                            next_url=next_url, prev_url=prev_url)
+
+@bp.route('/deletePost/<id>', methods= ['GET', 'POST'])
+@login_required
+def deletePost(id):
+    post = Post.query.filter_by(id=id).first_or_404()
+    if current_user != post.author:
+        flash("curiosity killed the cat")
+        return redirect(url_for('main.index'))
+    form = EmptyForm()
+    prev_page = request.referrer
+    if form.validate_on_submit():
+        db.session.delete(post)
+        db.session.commit()
+        flash(_("The post has been deleted"))
+        return redirect(prev_page)

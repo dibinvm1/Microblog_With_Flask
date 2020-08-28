@@ -18,6 +18,16 @@
             <br>
             {{ post.body }}
         </td>
+        {% if post.author == current_user %}
+        {% if delform %}
+        {% set form = delform %}
+        {% endif %}
+        <td width="70px">
+            <form  action="{{  url_for('main.deletePost',id=post.id) }}" method="post" onsubmit="return confirm('Are you Sure You want to delete this Post?');">
+                {{ form.hidden_tag() }}
+                {{ form.submit(value=_('Delete'), class_='btn btn-default') }}
+            </form>
+        </td>
+        {% endif %}
     </tr>
 </table>
-
