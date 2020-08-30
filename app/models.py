@@ -64,6 +64,7 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(120),index = True , unique = True)
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post',backref = 'author' , lazy = 'dynamic')
+    comments = db.relationship('Comment',backref = 'commentAuthor' , lazy = 'dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime,default=datetime.utcnow)
     followed = db.relationship(
@@ -154,10 +155,15 @@ class Post(SearchableMixin, db.Model):
     timestamp = db.Column(db.DateTime,index=True,default = datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
     language = db.Column(db.String(5))
+    comments = db.relationship('Comment',backref = 'commentedPost' , lazy = 'dynamic')
     
     def __repr__(self):
         ''' setting up how the instance represents '''
         return '<Post {}'.format(self.body)
+    
+    def getComments(self):
+        '''Query to get all the comments under this post '''
+        return Comment.query.filter_by(post_id=self.id).order_by(Comment.timestamp.desc()).limit(5).all()
     
 
 @login.user_loader
@@ -179,3 +185,14 @@ class Message(db.Model):
         ''' setting up how the instance represents '''
         return '<Message {}'.format(self.body)
 
+class Comment(db.Model):
+    id = db.Column(db.Integer,primary_key = True)
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime,index=True,default = datetime.utcnow)
+    user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
+    post_id = db.Column(db.Integer,db.ForeignKey('post.id'))
+    language = db.Column(db.String(5))
+
+    def __repr__(self):
+        ''' setting up how the instance represents '''
+        return '<Comment {}'.format(self.body)

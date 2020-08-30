@@ -1,8 +1,8 @@
 from app import  db
 from flask import render_template, flash, redirect, url_for, request, g, current_app
-from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm, MessageForm
+from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm, MessageForm, CommentForm
 from flask_login import current_user, login_user, login_required
-from app.models import User, Post, Message
+from app.models import User, Post, Message, Comment
 from werkzeug.urls import url_parse
 from datetime import datetime
 from flask_babel import _, get_locale
@@ -29,6 +29,7 @@ def index():
     ''' index page 
      returns the renderd template for index page'''
     form = PostForm()
+    commentForm = CommentForm()
     if form.validate_on_submit():
         language = guess_language(form.post.data)
         if language == 'UNKNOWN' or len(language) > 5 :
@@ -45,7 +46,8 @@ def index():
          if posts.has_next else None
     prev_url = url_for('main.index',page = posts.prev_num) \
          if posts.has_prev else None
-    return render_template('index.html',title = _("Home Page"), form=form, posts = posts.items, next_url=next_url, prev_url=prev_url)
+    return render_template('index.html',title = _("Home Page"), form=form, posts = posts.items, 
+                            next_url=next_url, prev_url=prev_url, commentForm=commentForm)
 
 
 @bp.route('/user/<username>')
@@ -62,7 +64,8 @@ def user(username):
     prev_url = url_for('main.user', username=usr.username, page=posts.prev_num) if posts.has_prev else None
 
     form = EmptyForm()
-    return render_template('user.html', user=usr, posts=posts.items, next_url=next_url, prev_url=prev_url, form=form)
+    commentForm = CommentForm()
+    return render_template('user.html', user=usr, posts=posts.items, next_url=next_url, prev_url=prev_url, form=form, commentForm=commentForm)
 
 
 @bp.route('/edit_profile', methods=["GET", "POST"])
@@ -134,6 +137,7 @@ def explore():
     ''' Explore call invokes when user clicks explore button in the Nav bar 
      returns the renderd template for index page with all the post fro all users'''
     form = EmptyForm()
+    commentForm = CommentForm()
     page = request.args.get('page',1,type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page,current_app.config['POSTS_PER_PAGE'],False)
@@ -141,7 +145,8 @@ def explore():
          if posts.has_next else None
     prev_url = url_for('main.explore',page = posts.prev_num)\
          if posts.has_prev else None
-    return render_template('index.html', title=_('Explore'), posts=posts.items, next_url=next_url, prev_url=prev_url,delform=form)
+    return render_template('index.html', title=_('Explore'), posts=posts.items, 
+                            next_url=next_url, prev_url=prev_url, delform=form, commentForm=commentForm)
 
 
 @bp.route('/search')
@@ -211,3 +216,36 @@ def deletePost(id):
         db.session.commit()
         flash(_("The post has been deleted"))
         return redirect(prev_page)
+
+
+@bp.route('/deleteComment/<id>', methods= ['GET', 'POST'])
+@login_required
+def deleteComment(id):
+    comment = Comment.query.filter_by(id=id).first_or_404()
+    if current_user != comment.commentAuthor:
+        flash("curiosity killed the cat")
+        return redirect(url_for('main.index'))
+    form = EmptyForm()
+    prev_page = request.referrer
+    if form.validate_on_submit():
+        db.session.delete(comment)
+        db.session.commit()
+        flash(_("The Comment has been deleted"))
+        return redirect(prev_page)
+
+
+@bp.route('/postComment/<id>', methods= ['GET', 'POST'])
+@login_required
+def postComment(id):
+    commentForm = CommentForm()
+    if commentForm.validate_on_submit():
+        language = guess_language(commentForm.body.data)
+        if language == 'UNKNOWN' or len(language) > 5 :
+            language =''
+        comment = Comment(body=commentForm.body.data, commentAuthor=current_user, language=language, post_id = id)
+        db.session.add(comment)
+        db.session.commit()
+        flash(_("The Comment is now live"))
+        return redirect(request.referrer)
+    return redirect(url_for('main.index'))
+

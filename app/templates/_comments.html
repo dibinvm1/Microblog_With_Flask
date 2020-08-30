@@ -1,0 +1,33 @@
+<table class="table table-hover">
+    <tr>
+        <td width="70px">
+            <a href="{{ url_for('main.user', username=comment.commentAuthor.username) }}">
+                <img src="{{ comment.commentAuthor.avatar(50) }}" />
+            </a>
+        </td>
+        <td>
+            {% set user_link %}
+            <span class="user_popup">
+                <a href="{{ url_for('main.user', username=comment.commentAuthor.username) }}">
+                    {{ comment.commentAuthor.username }}
+                </a>
+            </span>
+            {% endset %}
+            {{ _('%(username)s said %(when)s',
+                username=user_link, when=moment(comment.timestamp).fromNow()) }}
+            <br>
+            {{ comment.body }}
+        </td>
+        {% if comment.commentAuthor == current_user %}
+        {% if delform %}
+        {% set form = delform %}
+        {% endif %}
+        <td width="70px">
+            <form  action="{{  url_for('main.deleteComment',id=comment.id) }}" method="post" onsubmit="return confirm('Are you Sure You want to delete this Comment?');">
+                {{ form.hidden_tag() }}
+                {{ form.submit(value=_('Delete'), class_='btn btn-default') }}
+            </form>
+        </td>
+        {% endif %}
+    </tr>
+</table>

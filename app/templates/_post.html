@@ -17,6 +17,25 @@
                 username=user_link, when=moment(post.timestamp).fromNow()) }}
             <br>
             {{ post.body }}
+            <p>
+                <a class="btn btn-primary" data-toggle="collapse" href="#{{ post.id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Comments
+                </a>
+                <div class="collapse multi-collapse" id="{{ post.id }}">
+                    <form action="{{ url_for('main.postComment',id=post.id) }}" method="POST" >
+                        <p> {{ commentForm.hidden_tag() }} </p>
+                        <p>
+                            {{ commentForm.body(size=140)}}
+                        </p>
+                        <p>
+                            {{ commentForm.submit() }}
+                        </p>
+                    </form>
+                {% for comment in post.getComments() %}
+                  {% include '_comments.html' %}
+                {% endfor %}
+            </div>
+            </p>
         </td>
         {% if post.author == current_user %}
         {% if delform %}
@@ -31,3 +50,6 @@
         {% endif %}
     </tr>
 </table>
+
+
+

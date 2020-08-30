@@ -39,8 +39,8 @@ class PostForm(FlaskForm):
 
 
 class SearchForm(FlaskForm):
+    '''  Form class used for Searching functionality  '''
     query = StringField(_l('Search'), validators=[DataRequired()])
-
     def __init__(self,*args,**kwargs):
         if 'formdata' not in kwargs:
             kwargs['formdata'] = request.args
@@ -50,5 +50,12 @@ class SearchForm(FlaskForm):
 
 
 class MessageForm(FlaskForm):
+    '''  Form class used for message functionality  '''
     message = TextAreaField(_l('Message'),validators=[DataRequired(), Length(min=1, max=140)])
     submit = SubmitField(_l('Submit'))
+
+class CommentForm(FlaskForm):
+    '''  Form class used for Comment functionality  '''
+    body = TextAreaField(_l('Comment'),validators=[DataRequired(), Length(min=1, max=140)])
+    submit = SubmitField(_l('Submit'))
+
