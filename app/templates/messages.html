@@ -1,22 +1,64 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <h1>{{ _('Messages') }}</h1>
-    {% for post in messages %}
-        {% include '_post.html' %}
-    {% endfor %}
-    <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous{% if not prev_url %} disabled{% endif %}">
-                <a href="{{ prev_url or '#' }}">
-                    <span aria-hidden="true">&larr;</span> {{ _('Newer') }}
-                </a>
-            </li>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    {{ _('Older') }} <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+<div class="container"></div>
+    <h3 class=" text-center">{{ _('Messages') }}</h3>
+    <div class="messaging">
+          <div class="inbox_msg">
+            <div class="inbox_people">
+              <div class="headind_srch">
+                <div class="recent_heading">
+                  <h4>Recent</h4>
+                </div>
+              </div>
+              <div class="inbox_chat">
+                {%  if contacts %}
+                {%  for contact in contacts %}
+                {% if contact.username != current_user.username %}
+                <div style="cursor: pointer;" class="chat_list" data-id='{{ contact.username }}'>
+                  <div class="chat_people">
+                    <div class="chat_img"> <img src="{{ contact.avatar(50) }}" alt="{{contact.username }} "> </div>
+                    <div class="chat_ib">
+                      <h5>{{contact.username }} <span class="chat_date">{{ _('%(when)s',when=moment(contact.last_message().timestamp).fromNow()) }}</span></h5>
+                      <p>{{ contact.last_message().body }}</p>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="mesgs">
+              <div class="msg_history">
+                {% for message in messages %}
+                {% if message.author != current_user %}
+                  <div class="incoming_msg">
+                    <div class="incoming_msg_img "> <a href="{{ url_for('main.user', username=message.author.username) }}"> <img src="{{ message.author.avatar(50) }}" /></a>
+                    </div>
+                      <div class="received_msg">
+                        <div class="received_withd_msg">
+                          <p>{{message.body}}</p>
+                          <span class="time_date"> {{ _('%(when)s',when=moment(message.timestamp).fromNow()) }}</span>
+                        </div>
+                      </div>
+                  </div>
+                  {% else %}
+                  <div class="outgoing_msg">
+                    <div class="sent_msg">
+                      <p>{{message.body}}</p>
+                      <span class="time_date"> {{ _('%(when)s',when=moment(message.timestamp).fromNow()) }}</span> </div>
+                  </div>
+                {% endif %}
+                {% endfor %}
+              </div>
+              <div class="type_msg">
+                <div class="input_msg_write">
+                  <input type="text" class="write_msg" placeholder="Type a message" />
+                  <button id="sendButton" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>       
+        </div></div>
 {% endblock %}

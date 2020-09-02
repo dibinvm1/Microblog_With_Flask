@@ -10,6 +10,13 @@ from guess_language import guess_language
 from app.main import bp
 
 
+def messageAuthorsAndLastMessage(self):
+    ''' returns the username of the recieved authors and the last messages '''
+    authors = { }
+    recieved_msgs = User.messages_received.query.with_entities(User.username).filter_by(recipient=current_user).distinct()
+    recieved_msgs = Message.query.with_entities(User.username).join(User).filter_by(recipient=current_user).distinct()
+        
+
 # for Date time 
 @bp.before_app_request
 def before_request():
@@ -174,33 +181,54 @@ def user_popup(username):
     return render_template('user_popup.html', user=usr, form=form)
 
 
-@bp.route('/send_message/<recipient>', methods=['GET', 'POST'])
+@bp.route('/send_message/', methods=['GET', 'POST'])
 @login_required
-def send_message(recipient):
-    rec = User.query.filter_by(username=recipient).first_or_404()
-    form = MessageForm()
-    if form.validate_on_submit():
-        msg = Message(author=current_user, recipient=rec,
-        body = form.message.data)
+def send_message():
+    if request.method == 'POST':
+        recipientName = request.form['uname']
+        recipient = User.query.filter_by(username=recipientName).first_or_404()
+        msg = Message(author=current_user, recipient=recipient,body = request.form['data'])
         db.session.add(msg)
         db.session.commit()
-        flash(_('Message has been sent'))
-        return redirect(url_for('main.user',username=recipient))
-    return render_template('send_message.html', title=_('Send Message'),form = form, recipient = recipient)
+        msgs = Message.query.filter((Message.sender_id == current_user.id) & (Message.recipient_id == recipient.id) | \
+            (Message.sender_id == recipient.id) & (Message.recipient_id == current_user.id) ).order_by(Message.timestamp).limit(20)
+        contacts = User.query.join(Message,(Message.sender_id == User.id) | (Message.recipient_id == User.id)).\
+            filter(((Message.sender_id == current_user.id) | (Message.recipient_id == current_user.id)) & (User.id != current_user.id)).order_by(Message.timestamp.desc()).distinct()
+        return render_template('messages.html', messages=msgs, contacts=contacts)
 
 
+@bp.route('/messages', methods=['GET', 'POST'])
+@login_required
+def messages():
+    current_user.last_message_read_time = datetime.utcnow()
+    db.session.commit()
+    contacts = User.query.join(Message,(Message.sender_id == User.id) | (Message.recipient_id == User.id)).\
+        filter(((Message.sender_id == current_user.id) | (Message.recipient_id == current_user.id)) & (User.id != current_user.id)).order_by(Message.timestamp.desc()).distinct()
+    sender = contacts[0].username
+    if request.method == 'POST':
+        sender = request.form['data']
+    usr = User.query.filter_by(username=sender).first_or_404()
+    msgs = Message.query.filter((Message.sender_id == current_user.id) & (Message.recipient_id == usr.id) | \
+        (Message.sender_id == usr.id) & (Message.recipient_id == current_user.id) ).order_by(Message.timestamp).limit(20)
+    return render_template('messages.html', messages=msgs, contacts=contacts)
+
+
+'''        
 @bp.route('/messages')
 @login_required
 def messages():
     current_user.last_message_read_time = datetime.utcnow()
     db.session.commit()
     page = request.args.get('page', 1, type=int)
-    msgs = current_user.messages_received.order_by(Message.timestamp.desc()).paginate(
+    send_msgs = current_user.messages_sent
+    recieved_msgs = current_user.messages_received
+    msgs = send_msgs.union(recieved_msgs).order_by(Message.timestamp).paginate(
         page, current_app.config['POSTS_PER_PAGE'],False)
     next_url = url_for('mian.messages', page=msgs.next_num) if msgs.has_next else None
     prev_url = url_for('mian.messages', page=msgs.prev_num) if msgs.has_prev else None
     return render_template('messages.html', messages=msgs.items,
-                           next_url=next_url, prev_url=prev_url)
+                           next_url=next_url, prev_url=prev_url) '''
+
 
 @bp.route('/deletePost/<id>', methods= ['GET', 'POST'])
 @login_required
@@ -248,4 +276,9 @@ def postComment(id):
         flash(_("The Comment is now live"))
         return redirect(request.referrer)
     return redirect(url_for('main.index'))
+
+@bp.route('/background_process_test')
+def background_process_test():
+    print ("Hello")
+    return ("nothing")
 

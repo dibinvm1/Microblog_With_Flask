@@ -1,5 +1,9 @@
 {% extends 'bootstrap/base.html' %}
-
+{% block head %}
+{{ super() }}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+<link href="{{ url_for('static', filename='message.css')}}" type="text/css" rel="stylesheet">
+{% endblock %}
 {% block title %}
     {% if title %}{{ title }} - Microblog{% else %}{{ _('Welcome to Microblog') }}{% endif %}
 {% endblock %}
@@ -117,6 +121,60 @@
             $('#message_count').text(n);
             $('#message_count').css('visibility', n ? 'visible' : 'hidden');
         }
+        $(window).on('load',function(){
+            if ( $('div').hasClass("active_chat") == false ) {
+                $(".chat_list").first().attr('class', 'chat_list active_chat');
+            }
+        });
+        $(document).ready(function(){
+            $('body').on('click', '.chat_list', function(e){
+                var t = $(this)
+                e.preventDefault()
+                if (t.data('requestRunning')){
+                    return;
+                }
+                t.data('requestRunning', true)
+                var uname = t.data('id')
+                $.ajax( {
+                    type:'POST',
+                    url : "{{ url_for('main.messages')}}",
+                    data:{'data':uname},
+                    success:function(response)
+                    { 
+                        $('body').html(response);
+                        $(`.chat_list[data-id='${uname}']`).attr('class', 'chat_list active_chat'); 
+                    },
+                    complete:function(){
+                        t.data('requestRunning', false)
+                    }
+                }); 
+            });
+        });
+        $(document).ready(function(){
+            $('body').on('click', '#sendButton', function(e){
+                var t = $(this)
+                e.preventDefault()
+                if (t.data('requestRunning')){
+                    return;
+                }
+                t.data('requestRunning', true)
+
+                var uname = $(".chat_list.active_chat").data("id")
+                var text = $(".write_msg").val()
+                $.ajax( {
+                    type:'POST',
+                    url : "{{ url_for('main.send_message')}}",
+                    data:{'uname':uname,'data':text},
+                    success:function(response)
+                    { 
+                        $('body').html(response);
+                        $(`.chat_list[data-id='${uname}']`).attr('class', 'chat_list active_chat'); 
+                    },
+                    complete:function(){
+                        t.data('requestRunning', false)
+                    }
+                });
+            });
+        });
     </script>
 {% endblock %}
-
